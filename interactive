@@ -1,0 +1,53 @@
+#!/bin/bash
+
+source server_menu
+
+
+function menu() { 
+	
+	clear
+	echo "Main menu"
+	echo "----------------------------------------------------------------------------------"
+	echo ""
+	echo "1: Server Management"
+	echo ""
+	echo "S: Settings"
+	echo "0: Exit"
+	echo "----------------------------------------------------------------------------------"
+	echo "Select an option:"
+	read option
+
+	case $option in
+
+		1)
+			server_menu
+			;;		
+
+		0)
+            clear	
+            echo "Terminated"
+            echo ""			
+            exit
+            ;;
+	
+		[s] | [S])
+        
+			settings
+			;;
+
+		*)
+			menu
+			;;
+	esac
+}
+
+
+function settings() {
+
+	clear
+	nano settings
+    menu
+}
+
+
+menu

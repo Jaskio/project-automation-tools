@@ -1,0 +1,76 @@
+#!/bin/bash
+
+source settings
+
+
+function server_menu() {
+
+    clear
+	echo "Server Management"
+	echo "----------------------------------------------------------------------------------"
+	echo ""
+	echo "1: Login"
+	echo "2: Synchronize local and testing branch"
+	echo "3: Synchronize staging branch"
+	echo ""
+	echo "B: Back to main menu"
+	echo "----------------------------------------------------------------------------------"
+	echo "Select an option:"
+	read option
+
+    case $option in
+
+		1)
+			login
+			;;	
+
+		2)
+			testing_sync
+			;;	
+
+		3)
+			staging_sync
+			;;		
+	
+		[b] | [B])
+
+			menu
+			;;
+
+		*)
+			server_menu
+			;;
+	esac
+}
+
+
+function login() {
+
+    clear
+    sshpass -p $PASS ssh -o StrictHostKeyChecking=no $HOST
+}
+
+
+function staging_sync() {
+  
+    clear
+    sshpass -p $PASS ssh -o StrictHostKeyChecking=no $HOST "$(typeset -f); rsync -avzh --progress --stats $src_server $dest_server"
+    echo ""
+    read -p "Press [Enter] to return"
+    server_menu
+}
+
+
+function testing_sync() {
+
+    clear
+    echo "Implementation in progress..."
+    sleep 1
+    echo -ne "Returning.\r"
+    sleep 0.5
+    echo -ne "Returning..\r"
+    sleep 0.5
+    echo -ne "Returning...\r"
+    sleep 0.5
+    server_menu
+}

@@ -1,0 +1,9 @@
+# Host
+HOST=root@1.1.1.1
+
+# Password
+PASS=""
+
+# Paths
+src_server=
+dest_server=
