@@ -1,0 +1,48 @@
+#!/bin/bash
+
+source settings
+
+#check that both parameters are not empty strings
+if [ "$1" != "" ] || [ "$2" != "" ]; then
+
+	regex="^[0-9]+$"
+
+	#check that both parameters are integers
+	if ! [[ $1 =~ $regex ]]; then
+		echo ""
+		echo "Width in not a number!"
+		echo ""
+		exit
+	fi
+
+	if ! [[ $2 =~ $regex ]]; then
+		echo ""
+		echo "Height is not a number!"
+		echo ""
+		exit
+	fi
+fi
+
+#check that at least one parameter is not missing
+if [ "$1" = "" ] && [ "$2" = "" ]; then
+	echo ""
+	echo "Both parameters missing!"
+	echo "Enter either width or height."
+	echo ""
+	exit
+fi
+
+width=$1
+height=$2
+
+cd $resize_image_path
+
+#check that folder for new images is not already created
+if [ ! -d "resized_images" ]; then
+    mkdir resized_images
+fi
+
+convert "*.png[$widthx$height!]" -set filename:base "%[base]" "resized_images/%[filename:base].png"
+
+clear
+echo "Images resized"

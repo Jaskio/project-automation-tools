@@ -1,0 +1,50 @@
+#!/bin/bash
+
+source settings
+
+
+function local_menu() {
+
+    clear
+	echo "Local Development"
+	echo "----------------------------------------------------------------------------------"
+	echo ""
+	echo "1: Resize images"
+	echo ""
+	echo "B: Back to main menu"
+	echo "----------------------------------------------------------------------------------"
+	echo "Select an option:"
+	read option
+
+    case $option in
+
+		1)
+			resize_images
+			;;			
+	
+		[b] | [B])
+
+			menu
+			;;
+
+		*)
+			local_menu
+			;;
+	esac
+}
+
+
+function resize_images() {
+
+    clear
+    echo "Enter width (Eg 200)"
+    read width
+    echo ""
+    echo "Enter height (Eg 100)"
+    read height
+    echo ""
+    ./get_resized_images "$width" "$height"
+    echo ""
+    read -p "Press [Enter] to return"
+    local_menu
+}

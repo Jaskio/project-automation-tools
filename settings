@@ -7,3 +7,4 @@ PASS=""
 # Paths
 src_server=
 dest_server=
+resize_image_path=/media/sf_mint_share/pic_test/
